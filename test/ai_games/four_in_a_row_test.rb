@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class AiGames::FourInARowTest < Minitest::Test
+class AIGames::FourInARowTest < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil ::AiGames::FourInARow::VERSION
+    refute_nil ::AIGames::FourInARow::VERSION
   end
 
   def test_it_does_something_useful

@@ -5,7 +5,7 @@ require 'ai_games/four_in_a_row/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ai_games-four_in_a_row"
-  spec.version       = AiGames::FourInARow::VERSION
+  spec.version       = AIGames::FourInARow::VERSION
   spec.authors       = ["Jan David"]
   spec.email         = ["jandavid@awesometechnology.de"]
 
