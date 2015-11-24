@@ -109,11 +109,9 @@ module AIGames
       # field encoded as a string.
       def parse_field(field_string)
         i = 0
-        rows = field_string.split(';')
-        rows.each do |r|
+        field_string.split(';').each do |r|
           j = 0
-          columns = r.split(',')
-          columns.each do |c|
+          r.split(',').each do |c|
             match.playing_field[i][j] = match.bots[c.to_i]
             j += 1
           end
