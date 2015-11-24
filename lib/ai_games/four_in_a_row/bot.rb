@@ -43,6 +43,11 @@ module AIGames
       def place_disc
         rand(0..match.columns)
       end
+
+      # Starts this bot.
+      def run
+        @match.parser.run
+      end
     end
   end
 end
