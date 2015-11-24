@@ -27,8 +27,8 @@ game engine, so that you can focus on your bot.
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'ai_games-logger'
-  spec.add_runtime_dependency 'ai_games-parser'
+  spec.add_runtime_dependency 'ai_games-logger', '~> 0.1'
+  spec.add_runtime_dependency 'ai_games-parser', '~> 0.1'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
