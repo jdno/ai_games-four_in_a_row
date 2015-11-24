@@ -19,6 +19,7 @@
 # THE SOFTWARE.
 require 'ai_games/four_in_a_row/bot'
 require 'ai_games/four_in_a_row/parser'
+require 'singleton'
 
 module AIGames
   module FourInARow
