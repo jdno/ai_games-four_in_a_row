@@ -35,15 +35,7 @@ module AIGames
 
       # Initialize the playing field with the given number of rows and columns.
       def initialize(rows = 0, columns = 0)
-        @columns = columns
-        @rows = rows
-        @fields = Array.new(rows) { Array.new(columns) }
-
-        (0...rows).each do |i|
-          (0...columns).each do |j|
-            @fields[i][j] = nil
-          end
-        end
+        resize_field rows, columns
       end
 
       # Shortcut to the field elements, using the playing field itself like the
@@ -55,31 +47,21 @@ module AIGames
       # Sets number of rows. If the new number of rows is greater than the
       # current number of rows, the array gets resized.
       def rows=(rows)
-        if rows > @rows
-          (@rows...rows).each do |i|
-            @fields[i] = Array.new(columns)
-
-            (0...columns).each do |j|
-              @fields[i][j] = nil
-            end
-          end
-        end
-
-        @rows = rows
+        resize_field rows, @columns
       end
 
       # Sets the number of columns. If the new number of columns is greater than
       # the current number of columns, the array gets resized.
       def columns=(columns)
-        if columns > @columns
-          (0...rows).each do |i|
-            (@columns...columns).each do
-              @fields[i] << nil
-            end
-          end
-        end
+        resize_field @rows, columns
+      end
 
+      private
+
+      def resize_field(rows, columns)
         @columns = columns
+        @rows = rows
+        @fields = Array.new(rows) { Array.new(columns) { nil } }
       end
     end
   end
