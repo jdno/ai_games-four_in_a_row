@@ -17,10 +17,39 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-require 'ai_games/four_in_a_row/version'
+require 'ai_games/four_in_a_row/match'
 
 module AIGames
   module FourInARow
-    # Your code goes here...
+    class Bot
+      # Time in milliseconds that the bot has in its time bank
+      attr_accessor :current_time_bank
+
+      # Maximum time in milliseconds that the bot can have in its time bank
+      attr_accessor :maximum_time_bank
+
+      # Time in milliseconds that is added to the bot's time bank each move
+      attr_accessor :time_per_move
+
+      # The match instance
+      attr_reader :match
+
+      # Initializes a new bot.
+      def initialize(match = nil)
+        @match = match || Match.instance
+      end
+
+      # Places a disk. This method MUST return a single integer value, denoting
+      # the column you want to drop a pin in. To customize your bot, overwrite
+      # this method with your own implementation.
+      def place_disc
+        rand(0..match.columns)
+      end
+
+      # Starts this bot.
+      def run
+        @match.parser.run
+      end
+    end
   end
 end
