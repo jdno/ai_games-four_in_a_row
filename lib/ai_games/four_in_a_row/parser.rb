@@ -47,8 +47,10 @@ module AIGames
           parse_action command_array[2].to_i
         when 'update'
           parse_update command_array[2..-1]
+          return nil
         when 'settings'
           parse_settings command_array[1..-1]
+          return nil
         else
           Logger.warn('Parser.parse : Unknown command ' \
             "'#{command_array.join ' '}'")
