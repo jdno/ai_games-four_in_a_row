@@ -43,7 +43,7 @@ module AIGames
       # the column you want to drop a pin in. To customize your bot, overwrite
       # this method with your own implementation.
       def place_disc
-        rand(0..match.columns)
+        rand(0...match.playing_field.columns)
       end
 
       # Starts this bot.
