@@ -62,7 +62,7 @@ module AIGames
       # wants to make.
       def parse_action(time_bank)
         @match.my_bot.current_time_bank = time_bank
-        "place_disc #{@match.my_bot.place_disk}"
+        "place_disc #{@match.my_bot.place_disc}"
       end
 
       # Parses all commands starting with "update". This is either the number of
