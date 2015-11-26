@@ -17,6 +17,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+require 'ai_games/four_in_a_row/cell'
 require 'observer'
 
 module AIGames
@@ -41,7 +42,7 @@ module AIGames
         resize_field rows, columns
       end
 
-      # Returns the owner of a cell. If the cell has no owner, nil is returned.
+      # Returns the cell at the given position.
       def get_cell(row, column)
         @fields[row][column]
       end
@@ -49,11 +50,12 @@ module AIGames
       # Updates a cell. If the owner of the cell changes, all observers of the
       # playing field get notified.
       def set_cell(row, column, owner)
-        current_owner = @fields[row][column]
+        cell = @fields[row][column]
+        current_owner = cell.owner
         return if current_owner == owner
 
-        @fields[row][column] = owner
-        notify_observers(row, column, owner)
+        cell.owner = owner
+        notify_observers(cell, owner)
       end
 
       # Sets number of rows. If the new number of rows is greater than the
@@ -70,10 +72,17 @@ module AIGames
 
       private
 
+      # Resizes the playing field. Each time this method gets called, a new
+      # array is created and filled with new cells.
       def resize_field(rows, columns)
+        @fields = Array.new(rows) { Array.new(columns) }
         @columns = columns
         @rows = rows
-        @fields = Array.new(rows) { Array.new(columns) { nil } }
+        (0...rows).each do |r|
+          (0...columns).each do |c|
+            @fields[r][c] = Cell.new(r, c)
+          end
+        end
       end
     end
   end

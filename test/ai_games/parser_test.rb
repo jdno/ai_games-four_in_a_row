@@ -27,8 +27,8 @@ module AIGames
 
       def test_update_field
         @parser.parse %w(update game field 0,2,0;1,0,0)
-        assert_equal @match.bots[1], @match.playing_field.get_cell(1, 0)
-        assert_equal @match.bots[2], @match.playing_field.get_cell(0, 1)
+        assert_equal @match.bots[1], @match.playing_field.get_cell(1, 0).owner
+        assert_equal @match.bots[2], @match.playing_field.get_cell(0, 1).owner
       end
 
       def test_settings_timebank

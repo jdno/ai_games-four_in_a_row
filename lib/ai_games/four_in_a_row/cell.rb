@@ -17,44 +17,25 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-require 'ai_games/four_in_a_row/match'
-
 module AIGames
   module FourInARow
-    class Bot
-      # Time in milliseconds that the bot has in its time bank
-      attr_accessor :current_time_bank
+    # The playing field consists of cells. Each cell is located in a certain row
+    # and column, and can belong to one of the players.
+    class Cell
+      # The row the cell is in
+      attr_reader :row
 
-      # Maximum time in milliseconds that the bot can have in its time bank
-      attr_accessor :maximum_time_bank
+      # The column the cell is in
+      attr_reader :column
 
-      # Time in milliseconds that is added to the bot's time bank each move
-      attr_accessor :time_per_move
+      # The bot who fills this cell
+      attr_accessor :owner
 
-      # The match instance
-      attr_reader :match
-
-      # Initializes a new bot.
-      def initialize(match = nil)
-        @match = match || Match.instance
-      end
-
-      # Places a disk. This method MUST return a single integer value, denoting
-      # the column you want to drop a pin in. To customize your bot, overwrite
-      # this method with your own implementation.
-      def place_disc
-        rand(0...match.playing_field.columns)
-      end
-
-      # Handles changes on the playing field. Whenever the "owner" of a cell
-      # changes, the bot gets notified about it via this method. Overwrite this
-      # method to add your own logic.
-      def update(cell, new_owner)
-      end
-
-      # Starts this bot.
-      def run
-        @match.parser.run
+      # Initializes the cell with the given position, and optionally the owner.
+      def initialize(row, column, owner = nil)
+        @row = row
+        @column = column
+        @owner = owner
       end
     end
   end
