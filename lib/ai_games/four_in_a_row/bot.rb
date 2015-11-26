@@ -46,6 +46,12 @@ module AIGames
         rand(0...match.playing_field.columns)
       end
 
+      # Handles changes on the playing field. Whenever the "owner" of a cell
+      # changes, the bot gets notified about it via this method. Overwrite this
+      # method to add your own logic.
+      def update(row, column, new_owner)
+      end
+
       # Starts this bot.
       def run
         @match.parser.run

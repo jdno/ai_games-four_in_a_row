@@ -114,7 +114,7 @@ module AIGames
         field_string.split(';').each do |r|
           j = 0
           r.split(',').each do |c|
-            match.playing_field[i][j] = match.bots[c.to_i]
+            match.playing_field.set_cell(i, j, match.bots[c.to_i])
             j += 1
           end
           i += 1

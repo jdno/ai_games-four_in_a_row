@@ -52,7 +52,7 @@ module AIGames
       attr_reader :parser
 
       # The instance of the playing field
-      attr_accessor :playing_field
+      attr_reader :playing_field
 
       # Initializes a new match instance. If a custom bot is given, it is used
       # as the player's bot, else the default bot is used for both the player
