@@ -25,6 +25,12 @@ module AIGames
         assert_equal bot, @playing_field.get_cell(0 , 0)
       end
 
+      def test_set_cell
+        bot = Bot.new
+        @playing_field.set_cell(0, 0, bot)
+        assert_equal bot, @playing_field.instance_variable_get(:@fields)[0][0]
+      end
+
       def test_rows=
         @playing_field.rows = 3
 
