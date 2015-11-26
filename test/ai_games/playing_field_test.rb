@@ -14,9 +14,15 @@ module AIGames
 
         (0...2).each do |i|
           (0...4).each do |j|
-            assert_nil @playing_field[i][j]
+            assert_nil @playing_field.instance_variable_get(:@fields)[i][j]
           end
         end
+      end
+
+      def test_get_cell
+        bot = Bot.new
+        @playing_field.instance_variable_get(:@fields)[0][0] = bot
+        assert_equal bot, @playing_field.get_cell(0 , 0)
       end
 
       def test_rows=
@@ -24,7 +30,7 @@ module AIGames
 
         assert 3, @playing_field.rows
         (0...4).each do |j|
-          assert_nil @playing_field[2][j]
+          assert_nil @playing_field.get_cell(2, j)
         end
       end
 
@@ -33,7 +39,7 @@ module AIGames
 
         assert 5, @playing_field.columns
         (0...2).each do |i|
-          assert_nil @playing_field[i][4]
+          assert_nil @playing_field.get_cell(i, 4)
         end
       end
     end

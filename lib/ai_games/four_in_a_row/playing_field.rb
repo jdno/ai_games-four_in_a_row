@@ -17,6 +17,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+require 'observer'
+
 module AIGames
   module FourInARow
     # This class represents the playing field of the game. It has a given number
@@ -24,24 +26,34 @@ module AIGames
     # field is filled, the name of the player whose chip fills the field is
     # stored in it.
     class PlayingField
+      # Implement observer pattern to notify bots when the owner of a cell
+      # changes.
+      include Observable
+
       # The number of columns of the playing field
       attr_reader :columns
 
       # The number of rows of the playing field
       attr_reader :rows
 
-      # A two-dimensional array containing all the fields of the playing field
-      attr_reader :fields
-
       # Initialize the playing field with the given number of rows and columns.
       def initialize(rows = 0, columns = 0)
         resize_field rows, columns
       end
 
-      # Shortcut to the field elements, using the playing field itself like the
-      # underlying array structure.
-      def [](index)
-        @fields[index]
+      # Returns the owner of a cell. If the cell has no owner, nil is returned.
+      def get_cell(row, column)
+        @fields[row][column]
+      end
+
+      # Updates a cell. If the owner of the cell changes, all observers of the
+      # playing field get notified.
+      def set_cell(row, column, owner)
+        current_owner = @fields[row][column]
+        return if current_owner == owner
+
+        @fields[row][column] = owner
+        notify_observers(row, column, owner)
       end
 
       # Sets number of rows. If the new number of rows is greater than the

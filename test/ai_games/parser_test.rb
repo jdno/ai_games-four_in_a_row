@@ -11,6 +11,8 @@ module AIGames
         @match = Match.instance
         @match.playing_field.rows    = 2
         @match.playing_field.columns = 3
+        @match.bots[1] = @match.my_bot
+        @match.bots[2] = @match.enemy_bot
         @parser = Parser.new(@match, input: @input, output: @output)
       end
 
@@ -25,8 +27,8 @@ module AIGames
 
       def test_update_field
         @parser.parse %w(update game field 0,2,0;1,0,0)
-        assert_equal @match.bots[1], @match.playing_field[1][0]
-        assert_equal @match.bots[2], @match.playing_field[0][1]
+        assert_equal @match.bots[1], @match.playing_field.get_cell(1, 0)
+        assert_equal @match.bots[2], @match.playing_field.get_cell(0, 1)
       end
 
       def test_settings_timebank
