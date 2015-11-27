@@ -31,11 +31,20 @@ module AIGames
       # The bot who fills this cell
       attr_accessor :owner
 
+      # The neighbors of this cell
+      attr_accessor :neighbors
+
       # Initializes the cell with the given position, and optionally the owner.
       def initialize(row, column, owner = nil)
         @row = row
         @column = column
         @owner = owner
+        @neighbors = []
+      end
+
+      # Returns all neighbors having the same owner.
+      def neighbors_with_same_owner
+        neighbors.select { |x| x.owner == owner }
       end
     end
   end
