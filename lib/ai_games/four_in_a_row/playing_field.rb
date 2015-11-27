@@ -47,6 +47,17 @@ module AIGames
         @fields[row][column]
       end
 
+      # Returns all cells in the given area. Pass in two ranges to limit area.
+      def get_cells(rows, columns)
+        cells = []
+        rows.each do |r|
+          columns.each do |c|
+            cells << @fields[r][c]
+          end
+        end
+        cells
+      end
+
       # Updates a cell. If the owner of the cell changes, all observers of the
       # playing field get notified.
       def set_cell(row, column, owner)
@@ -72,17 +83,43 @@ module AIGames
 
       private
 
+      # Fills the playing field with cells.
+      def create_cells
+        (0...rows).each do |r|
+          (0...columns).each do |c|
+            @fields[r][c] = Cell.new(r, c)
+          end
+        end
+      end
+
+      # Find all neighbors of a cell.
+      def find_neighbors(cell)
+        min_r = [0, cell.row - 1].max
+        max_r = [cell.row + 1, rows - 1].min
+        min_c = [0, cell.column - 1].max
+        max_c = [cell.column + 1, columns - 1].min
+
+        get_cells(min_r..max_r, min_c..max_c).select { |x| x unless x == cell }
+      end
+
+      # Sets up neighbor relationships for all cells.
+      def link_cells
+        (0...rows).each do |r|
+          (0...columns).each do |c|
+            cell = @fields[r][c]
+            cell.neighbors = find_neighbors(cell)
+          end
+        end
+      end
+
       # Resizes the playing field. Each time this method gets called, a new
       # array is created and filled with new cells.
       def resize_field(rows, columns)
         @fields = Array.new(rows) { Array.new(columns) }
         @columns = columns
         @rows = rows
-        (0...rows).each do |r|
-          (0...columns).each do |c|
-            @fields[r][c] = Cell.new(r, c)
-          end
-        end
+        create_cells
+        link_cells
       end
     end
   end
