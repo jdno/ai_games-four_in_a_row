@@ -1,27 +1,71 @@
 # AIGames::FourInARow
 
-Library and starter bot for [The AI Games'] new competition
-[Four in a Row](http://theaigames.com/competitions/four-in-a-row/).
+Library and starter bot for [The AI Games'](http://theaigames.com) new
+competition [Four in a Row](http://theaigames.com/competitions/four-in-a-row/).
+
+## Dependencies
+
+This gem relies on:
+
+- **[AIGames::Logger](https://github.com/jdno/ai_games-logger)**
+- **[AIGames::Parser](https://github.com/jdno/ai_games-parser)**
+
+Install these gems before trying to run **AIGames::FourInARow**
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Since [The AI Games'](http://theaigames.com) environment does not support gems
+yet, you have to download and extract the library yourself.
 
-```ruby
-gem 'ai_games-four_in_a_row'
+There are two ways to do this: manually and semi-manually. To do it manually,
+download the ZIP archive of this repository, and copy the _lib/_ folder into
+the folder in which you have your bot. Or follow the more convenient method to
+get the most up-to-date version from [RubyGems](http://rubygems.org).
+
+### From RubyGems
+
+To download the most current version of the library, enter the following command
+in the shell of your choice:
+
+```bash
+gem fetch ai_games-four_in_a_row
 ```
 
-And then execute:
+Next, extract the gem to get its source code. Replace VERSION with the gem's
+actual version (e.g. 0.4.0):
 
-    $ bundle
+```bash
+gem unpack ai_games-four_in_a_row-VERSION.gem
+```
 
-Or install it yourself as:
+And last but not least, copy the library into the _lib/_ directory:
 
-    $ gem install ai_games-four_in_a_row
+```bash
+cp -r ai_games-four_in_a_row-VERSION/lib .
+```
+
+If you want, you can clean up your folder by deleting both the gem and the
+extracted folder now:
+
+```bash
+rm ai_games-four_in_a_row-VERSION.gem
+rm -r ai_games-four_in_a_row-VERSION
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+To be able to use the library, your bot must require it. Add the following line
+at the top of your bot's file:
+
+```ruby
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
+```
+
+Now, you can use the library just like you would've if you installed it as a
+gem.
+
+When **uploading your bot**, remember to include the _lib/_ directory in the
+archive!
 
 ## Development
 
